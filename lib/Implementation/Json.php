@@ -14,7 +14,7 @@ use Morfin60\BoxberryApi\Exception\JsonException;
 class Json implements ApiInterface
 {
     /**
-     * @var \GuzzleHttp\Client()
+     * @var \GuzzleHttp\ClientInterface
      * @access private
      */
     private $client;
@@ -34,15 +34,16 @@ class Json implements ApiInterface
      * @param string $api_key
      * @param string $api_url
      * @param bool $use_https
+     * @param null|\GuzzleHttp\ClientInterface $client
      */
-    public function __construct($api_key, $api_url, $use_https)
+    public function __construct($api_key, $api_url, $use_https, $client = null)
     {
 
         $url = (( true === $use_https)?'https':'http').'://'.$api_url;
 
         $this->url = $url.'/json.php';
         $this->api_key = $api_key;
-        $this->client = new \GuzzleHttp\Client();
+        $this->client = $client ?: new \GuzzleHttp\Client();
     }
 
     /**
