@@ -297,7 +297,7 @@ class Json implements ApiInterface
                 ]);
             }
 
-            $json_data = $response->getBody()->getContents();
+            $json_data = (string) $response->getBody();
         } catch (\GuzzleHttp\Exception\GuzzleException $error) {
             throw new ApiException($error->getMessage(), ApiException::HTTP_ERROR, $error);
         }
