@@ -228,7 +228,7 @@ class Json implements ApiInterface
      */
     public function parselSend($im_ids)
     {
-        return $this->sendRequest('parselSend', ['ImIds' => $im_ids]);
+        return $this->sendRequest('parselSend', ['ImIds' => $im_ids], ['type' => 'POST']);
     }
 
     /**
