@@ -282,19 +282,20 @@ class Json implements ApiInterface
             'token' => $this->api_key
         ], $parameters);
 
+        $config = \array_merge([
+            'connect_timeout' => 10,
+            'timeout' => 30
+        ], $this->client->getConfig());
+
         try {
             if ('GET' === $type) {
-                $response = $this->client->get($this->url, [
+                $response = $this->client->get($this->url, \array_merge([
                     'query' => $request_parameters,
-                    'connect_timeout' => 10,
-                    'timeout' => 30
-                ]);
+                ], $config));
             } else {
-                $response = $this->client->post($this->url, [
+                $response = $this->client->post($this->url, \array_merge([
                     'form_params' => $request_parameters,
-                    'connect_timeout' => 10,
-                    'timeout' => 30
-                ]);
+                ], $config));
             }
 
             $json_data = (string) $response->getBody();
